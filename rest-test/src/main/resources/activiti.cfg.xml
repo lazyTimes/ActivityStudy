@@ -8,9 +8,9 @@
 <!--        数据库驱动-->
         <property name="jdbcDriver" value="com.mysql.cj.jdbc.Driver"></property>
 <!--        数据库链接-->
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test?useSSL=false&amp; useUnicode=true&amp; characterEncoding=utf8&amp; serverTimezone=Asia/Shanghai&amp; nullCatalogMeansCurrent=true"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:12306/test?useSSL=false&amp; useUnicode=true&amp; characterEncoding=utf8&amp; serverTimezone=Asia/Shanghai&amp; nullCatalogMeansCurrent=true"></property>
         <property name="jdbcUsername" value="root"></property>
-        <property name="jdbcPassword" value="123456"></property>
+        <property name="jdbcPassword" value="zxd123"></property>
 <!--        数据库表在生成时的依赖-->
         <property name="databaseSchemaUpdate" value="true"></property>
     </bean>
