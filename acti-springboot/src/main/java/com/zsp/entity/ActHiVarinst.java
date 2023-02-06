@@ -47,10 +47,10 @@ public class ActHiVarinst implements Serializable {
     private String bytearrayId;
 
     @TableField("DOUBLE_")
-    private Double double;
+    private Double doubles;
 
     @TableField("LONG_")
-    private Long long;
+    private Long longs;
 
     @TableField("TEXT_")
     private String text;
