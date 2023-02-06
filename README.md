@@ -3,11 +3,14 @@
 csdn地址：https://blog.csdn.net/qq_42388853/article/details/116136819
 
 github地址：https://github.com/270520006/ActivityStudy
-***\*activity工作流\***
+
+# 本项目目的
 
 Activity工作流的学习，想通过Activity工作流的形式去整合ELK、MQ和SpringCloud。 
 
-***\*一、\*******\*什么是工作流\****
+
+
+# 一、什么是工作流？
 
  以请假为例，现在大多数公司的请假流程是这样的： 员工打电话（或网聊）向上级提出请假申请—上级口头同意— 上级将请假记录下来—月底将请假记录上交公司—公司将请假录入电脑
 
@@ -17,23 +20,35 @@ Activity工作流的学习，想通过Activity工作流的形式去整合ELK、M
 
 答案是，用的。但是这一切的工作都会在上级点击允许后自动运行！ 这就是工作流技术。 Georgakopoulos给出的工作流定义是： 工作流是将一组任务组织起来以完成某个经营过程： 定义了任务的触发顺序和触发条件，每个任务可以由一个或多个软件系统完成， 也可以由一个或一组人完成，还可以由一个或多个人与软件系统协作完
 
-***\*二、\*******\*工作流技术的优点\****
+
+
+# 二、工作流技术的优点
 
  从上面的例子，很容易看出 工作流系统，实现了工作流程的自动化，提高了企业运营效率、 改善企业资源利用、提高企业运作的灵活性和适应性、提高量化考核业务处理的效率、减少浪费（时间就是金钱）。 而手工处理工作流程，一方面无法对整个流程状况进行有效跟踪、了解， 另一方面难免会出现人为的失误和时间上的延时导致效率低下，特别是无法进行量化统计，不利于查询、报表及绩效评估。
 
-***\*三、\*******\*Java开发者会为什么要学Activity工作流\**** 
+
+
+# 三、Java开发者会为什么要学Activity工作流 
 
 在Java领域，JBPM和Activity是两个主流的工作流系统， 而Activity的出现无疑将会取代JBPM（Activity的开发者就是从Jbpm开发者出来的）。
 
-***\*四、\*******\*Activity工作流学习要点\**** 
 
-1、1个插件 打开idea 选择 file-settings，打开如下页面，选择左侧Plugins ， 然后点击下面的Search…输入actiBPM搜索,安装并重启IDEA
 
- 
+# 四、Activity工作流学习要点 
+
+1、安装Activity插件 ，打开idea 选择 file-settings，打开如下页面，选择左侧Plugins ， 然后点击下面的Search…输入actiBPM搜索,安装并重启IDEA
+
+![design1](https://adong-picture.oss-cn-shenzhen.aliyuncs.com/adong/design1.png)
+
+
 
 2、1个引擎 ProcessEngine对象，Activity工作流引擎。这是Activiti工作的核心。 负责生成流程运行时的各种实例及数据、监控和管理流程的运行。 所有的操作都是从获取引擎开始的，所以一般会把引擎作为全局变量 ProcessEngine processEngine =ProcessEngines.getDefaultProcessEngine();1个配置文件 activiti.cfg.xml。Activiti核心配置文件， 配置流程引擎创建工具的基本参数和数据库连接池参数
 
- 
+
+
+![image-20230206105811233](https://adong-picture.oss-cn-shenzhen.aliyuncs.com/adong/image-20230206105811233.png)
+
+
 
 3、5种数据库表
 
@@ -49,8 +64,6 @@ ACT_HI_*: 'HI'表示history。 这些表包含历史数据，比如历史流程�
 
 ACT_GE_*: 通用数据，用于不同场景下，如存放资源文件。
 
- 
-
 整体流程：
 
 ```
@@ -64,15 +77,17 @@ ACT_GE_*: 通用数据，用于不同场景下，如存放资源文件。
  */
 ```
 
-***\*使用流程图在activity工作流的情况下生成数据库表\****
+使用流程图在activity工作流的情况下生成数据库表
 
 1、先安装actiBPM插件，然后新建bmp流程图
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml9796\wps1.jpg) 
 
-2、将名字改成bpm20.xml后缀（这里一定要是bpm20否则act_re_procdef表不会插入数据）
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml9796\wps2.jpg) 
+
+
+2、将名字改成**bpm20.xml**后缀（这里一定要是bpm20否则act_re_procdef表不会插入数据，当然也不要去十万个为什么，因为这个是插件设计者要求的规范）
+
+
 
  
 
@@ -82,11 +97,11 @@ ACT_GE_*: 通用数据，用于不同场景下，如存放资源文件。
 
 3、生成流程图
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml9796\wps3.jpg) 
+
 
 4、导出流程图
 
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml9796\wps4.jpg)
+
 
 5、新建activiti.cfg.xml，这里特别注意高版本mysql的url一定要使用com.mysql.cj.jdbc.Driver还有nullCatalogMeansCurrent=true
 
@@ -215,8 +230,6 @@ public void testFinishTask_manager(){
 ```
 
 执行几次10和11的操作后，如图：
-
-![img](file:///C:\Users\ADMINI~1\AppData\Local\Temp\ksohtml9796\wps5.jpg) 
 
 
 
