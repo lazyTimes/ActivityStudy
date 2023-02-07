@@ -48,11 +48,11 @@ class RestTestApplicationTests {
                 .addClasspathResource("bmp/testmy.bpmn20.png")   //导入流程图  !!!!一定要加bpmn20
                 .deploy();   //开始部署
     }/*输出结果：
-    2023-02-06 15:17:46.631  INFO 10692 --- [           main] org.activiti.engine.ProcessEngines       : Initializing process engine using configuration 'file:/E:/adongstack/project/selfUp/ActivityStudy/rest-test/target/classes/activiti.cfg.xml'
-    2023-02-06 15:17:46.632  INFO 10692 --- [           main] org.activiti.engine.ProcessEngines       : initializing process engine for resource file:/E:/adongstack/project/selfUp/ActivityStudy/rest-test/target/classes/activiti.cfg.xml
-    2023-02-06 15:17:47.688  INFO 10692 --- [           main] o.a.engine.impl.ProcessEngineImpl        : ProcessEngine default created
-    2023-02-06 15:17:47.695  INFO 10692 --- [           main] org.activiti.engine.ProcessEngines       : initialised process engine default
-    2023-02-06 15:17:47.800  INFO 10692 --- [           main] o.a.e.impl.bpmn.deployer.BpmnDeployer    : Process deployed: {id: Test:1:4, key: Test, name: Test }
+  2023-02-07 19:11:48.019  INFO 30708 --- [           main] org.activiti.engine.ProcessEngines       : Initializing process engine using configuration 'file:/E:/adongstack/project/selfUp/ActivityStudy/rest-test/target/classes/activiti.cfg.xml'
+2023-02-07 19:11:48.021  INFO 30708 --- [           main] org.activiti.engine.ProcessEngines       : initializing process engine for resource file:/E:/adongstack/project/selfUp/ActivityStudy/rest-test/target/classes/activiti.cfg.xml
+2023-02-07 19:11:49.147  INFO 30708 --- [           main] o.a.engine.impl.ProcessEngineImpl        : ProcessEngine default created
+2023-02-07 19:11:49.154  INFO 30708 --- [           main] org.activiti.engine.ProcessEngines       : initialised process engine default
+2023-02-07 19:11:49.284  INFO 30708 --- [           main] o.a.e.impl.bpmn.deployer.BpmnDeployer    : Process deployed: {id: Test:2:50004, key: Test, name: Test }
     */
 
     //2、启用创建的流程图进行审批
@@ -61,7 +61,7 @@ class RestTestApplicationTests {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         //act_re_procdef表里的id，如果没生成，去看上一步，真是哔了狗
         processEngine.getRuntimeService()
-                .startProcessInstanceById("Test:1:4");
+                .startProcessInstanceById("Test:2:50004");
     }/*
     如果id不对，会报错no deployed process definition found with id 'myProcess_1:1:4'
     这里获取上一步deploy的 结果 {id: Test:1:4, key: Test, name: Test }
@@ -71,7 +71,7 @@ class RestTestApplicationTests {
     2023-02-06 15:44:06.023  INFO 36724 --- [           main] o.a.engine.impl.ProcessEngineImpl        : ProcessEngine default created
     2023-02-06 15:44:06.028  INFO 36724 --- [           main] org.activiti.engine.ProcessEngines       : initialised process engine default
     个人实验执行了两次：
-    这里使用第三列 execute_id
+    这里使用第1列 id
     2505	1	2502	2501	Test:1:4	student leave			学生请假	sid-83f70fa4-a638-443a-9452-e5ceced3e708				50	2023-02-06 15:44:09.939			1
     5005	1	5002	5001	Test:1:4	student leave			学生请假	sid-83f70fa4-a638-443a-9452-e5ceced3e708				50	2023-02-06 15:46:36.962			1
     */

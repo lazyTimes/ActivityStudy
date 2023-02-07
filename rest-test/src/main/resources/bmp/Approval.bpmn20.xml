@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="Companyregistrationqualificationapproval" name="Companyregistrationqualificationapproval" isExecutable="true">
+    <startEvent id="sid-001b0082-c648-41ae-a364-3f038fea96b7">
+      <documentation/>
+    </startEvent>
+    <userTask id="sid-7c0dae05-c00e-402f-90de-a79f45a64c75" name="Merchants submit approval information" activiti:assignee="merchant">
+      <documentation>Merchants submit approval information</documentation>
+    </userTask>
+    <sequenceFlow id="sid-f6bddf4f-acbe-4c2a-9063-366403db6bee" sourceRef="sid-001b0082-c648-41ae-a364-3f038fea96b7" targetRef="sid-7c0dae05-c00e-402f-90de-a79f45a64c75">
+      <documentation/>
+    </sequenceFlow>
+    <userTask id="sid-493d020c-334e-41da-9cad-54a4fef529d0" activiti:assignee="approvalLevel1" name="First level approval">
+      <documentation>First level approval</documentation>
+    </userTask>
+    <sequenceFlow id="sid-853aef6f-8ffc-405b-a69e-2af338dac069" sourceRef="sid-7c0dae05-c00e-402f-90de-a79f45a64c75" targetRef="sid-493d020c-334e-41da-9cad-54a4fef529d0" name="Submit for approval">
+      <documentation>Submit for approval</documentation>
+    </sequenceFlow>
+    <sequenceFlow id="sid-f9b5ca7c-77b6-43f0-ad87-b30e4d5e1f60" sourceRef="sid-493d020c-334e-41da-9cad-54a4fef529d0" targetRef="sid-4b3ce3f8-b020-4039-b4ec-2cdca7a99aa1" name="One level of approval to review merchants">
+      <documentation>One level of approval to review merchants</documentation>
+      <conditionExpression/>
+    </sequenceFlow>
+    <sequenceFlow id="sid-3ba6a1de-befe-48cd-b12a-12e3a7572c7e" sourceRef="sid-4b3ce3f8-b020-4039-b4ec-2cdca7a99aa1" targetRef="sid-7c0dae05-c00e-402f-90de-a79f45a64c75" name="Approval Rejection">
+      <documentation>Approval Rejection</documentation>
+      <conditionExpression xsi:type="tFormalExpression">${approval.agree=='false'}</conditionExpression>
+    </sequenceFlow>
+    <userTask id="sid-45ef0792-e204-48e2-af66-e97dd9b15832" name="Secondary Approval" activiti:assignee="approvalLevel2">
+      <documentation>Secondary Approval</documentation>
+    </userTask>
+    <sequenceFlow id="sid-a0b2d9cd-3fc6-457b-ad86-2cb2f51ea3a0" sourceRef="sid-4b3ce3f8-b020-4039-b4ec-2cdca7a99aa1" targetRef="sid-45ef0792-e204-48e2-af66-e97dd9b15832" name="Agree">
+      <documentation>Agree</documentation>
+      <conditionExpression xsi:type="tFormalExpression">${approval.agree=='true'}</conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="sid-4ea4690a-417d-4f56-a24f-1f8727abb89a"/>
+    <endEvent id="sid-9041db2e-19b8-4937-a2ac-0671eb8ba56c" name="End of company registration qualification approval">
+      <documentation>End of company registration qualification approval</documentation>
+    </endEvent>
+    <sequenceFlow id="sid-2926811f-8162-4b34-969b-c57450dc079e" sourceRef="sid-45ef0792-e204-48e2-af66-e97dd9b15832" targetRef="sid-4ea4690a-417d-4f56-a24f-1f8727abb89a" name="Secondary approval review merchants">
+      <documentation>Secondary approval review merchants</documentation>
+    </sequenceFlow>
+    <sequenceFlow id="sid-1e3b61ef-c5f1-495e-833f-60deeff614d1" sourceRef="sid-4ea4690a-417d-4f56-a24f-1f8727abb89a" targetRef="sid-9041db2e-19b8-4937-a2ac-0671eb8ba56c" name="agree end">
+      <documentation>agree end</documentation>
+      <conditionExpression xsi:type="tFormalExpression">${approval.agree=='true' &amp;&amp; approval.toNext=='End'}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-e1712fb0-9104-421d-9f58-586595936e4f" sourceRef="sid-4ea4690a-417d-4f56-a24f-1f8727abb89a" targetRef="sid-493d020c-334e-41da-9cad-54a4fef529d0" name="rejection to level1">
+      <documentation>rejection to level1</documentation>
+      <conditionExpression xsi:type="tFormalExpression">${approval.agree=='false' &amp;&amp; approval.toNext=='approvalLevel1'}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-13da9245-ad97-4c3d-bb19-e636882896a5" sourceRef="sid-4ea4690a-417d-4f56-a24f-1f8727abb89a" targetRef="sid-7c0dae05-c00e-402f-90de-a79f45a64c75" name="rejection to merchant">
+      <conditionExpression xsi:type="tFormalExpression">${approval.agree=='false' &amp;&amp; approval.toNext=='merchant'}</conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="sid-4b3ce3f8-b020-4039-b4ec-2cdca7a99aa1" name="check Process Access">
+      <documentation>check Process Access</documentation>
+    </exclusiveGateway>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Companyregistrationqualificationapproval">
+    <bpmndi:BPMNPlane bpmnElement="Companyregistrationqualificationapproval" id="BPMNPlane_Companyregistrationqualificationapproval">
+      <bpmndi:BPMNShape id="shape-9be10075-3f64-4bb7-ac60-110fe7f3ece6" bpmnElement="sid-001b0082-c648-41ae-a364-3f038fea96b7">
+        <omgdc:Bounds x="-450.0" y="-25.0" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-116590fd-7349-4634-b641-d0208c280975" bpmnElement="sid-7c0dae05-c00e-402f-90de-a79f45a64c75">
+        <omgdc:Bounds x="-230.0" y="-50.0" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-05993672-f678-4f6e-8727-0d7e22abd0a6" bpmnElement="sid-f6bddf4f-acbe-4c2a-9063-366403db6bee">
+        <omgdi:waypoint x="-420.0" y="-10.0"/>
+        <omgdi:waypoint x="-230.0" y="-10.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape-a967f942-f601-47bc-95f5-67b5674c3d63" bpmnElement="sid-493d020c-334e-41da-9cad-54a4fef529d0">
+        <omgdc:Bounds x="5.000002" y="-50.0" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-8435660f-f415-4ec8-a810-c0e588d3b361" bpmnElement="sid-853aef6f-8ffc-405b-a69e-2af338dac069">
+        <omgdi:waypoint x="-130.0" y="-10.0"/>
+        <omgdi:waypoint x="5.000002" y="-10.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-e07d3a49-1bbc-44e4-a069-e4c1d26995a7" bpmnElement="sid-f9b5ca7c-77b6-43f0-ad87-b30e4d5e1f60">
+        <omgdi:waypoint x="105.0" y="-10.0"/>
+        <omgdi:waypoint x="117.5" y="-10.0"/>
+        <omgdi:waypoint x="349.99997" y="-10.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-7ca93bdf-5b5e-4f84-9311-ff48f5828798" bpmnElement="sid-3ba6a1de-befe-48cd-b12a-12e3a7572c7e">
+        <omgdi:waypoint x="370.0" y="-30.0"/>
+        <omgdi:waypoint x="370.0" y="-94.99999"/>
+        <omgdi:waypoint x="82.5" y="-95.0"/>
+        <omgdi:waypoint x="-179.99998" y="-95.0"/>
+        <omgdi:waypoint x="-179.99998" y="-50.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape-439d1405-0c99-4d04-a285-4815b12734b2" bpmnElement="sid-45ef0792-e204-48e2-af66-e97dd9b15832">
+        <omgdc:Bounds x="550.0" y="-50.0" width="140.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-835e7566-e0f6-4888-a9e6-f3d4de39ada6" bpmnElement="sid-a0b2d9cd-3fc6-457b-ad86-2cb2f51ea3a0">
+        <omgdi:waypoint x="395.0" y="-10.0"/>
+        <omgdi:waypoint x="543.0" y="-10.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape-49d40756-52f1-4048-ab96-234a043260d0" bpmnElement="sid-4ea4690a-417d-4f56-a24f-1f8727abb89a">
+        <omgdc:Bounds x="60.000008" y="130.0" width="40.0" height="40.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-93fc02b5-fc7d-4029-a2d9-87f87649ffe0" bpmnElement="sid-9041db2e-19b8-4937-a2ac-0671eb8ba56c">
+        <omgdc:Bounds x="66.18124" y="240.0" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-eafdfd02-6605-4c8e-8fa5-9dcbb8583cb7" bpmnElement="sid-2926811f-8162-4b34-969b-c57450dc079e">
+        <omgdi:waypoint x="620.0" y="30.0"/>
+        <omgdi:waypoint x="620.0" y="150.0"/>
+        <omgdi:waypoint x="360.0" y="150.0"/>
+        <omgdi:waypoint x="100.00001" y="150.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-0613b480-dc32-4e96-acdc-5b2264815323" bpmnElement="sid-1e3b61ef-c5f1-495e-833f-60deeff614d1">
+        <omgdi:waypoint x="80.00001" y="170.0"/>
+        <omgdi:waypoint x="81.18123" y="239.99998"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-5bb0784b-935d-45fe-8257-0add8fdaae5d" bpmnElement="sid-e1712fb0-9104-421d-9f58-586595936e4f">
+        <omgdi:waypoint x="80.00001" y="130.0"/>
+        <omgdi:waypoint x="80.0" y="30.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-b9cc6732-4695-45b6-a475-99df19c3734b" bpmnElement="sid-13da9245-ad97-4c3d-bb19-e636882896a5">
+        <omgdi:waypoint x="60.000008" y="150.0"/>
+        <omgdi:waypoint x="-180.0" y="150.0"/>
+        <omgdi:waypoint x="-180.0" y="29.999998"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape-0ec0920d-7b84-4e2c-864b-c7d22016a8e7" bpmnElement="sid-4b3ce3f8-b020-4039-b4ec-2cdca7a99aa1">
+        <omgdc:Bounds x="350.0" y="-30.0" width="40.0" height="40.0"/>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
